@@ -1,0 +1,50 @@
+#ifndef DEF_TIM_H
+#define DEF_TIM_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// STM32F7HAL
+#include <stm32f7xx.h>
+
+// Base Address
+#define PHY_TIM_1S_BASE TIM5
+#define PHY_TIM_1MS_BASE TIM6
+#define PHY_TIM_100US_BASE TIM7
+
+// Interrupt Number
+#define PHY_TIM_1S_IRQ_NUMBER TIM5_IRQn
+#define PHY_TIM_1MS_IRQ_NUMBER TIM6_DAC_IRQn
+#define PHY_TIM_100US_IRQ_NUMBER TIM7_IRQn
+
+// Interrupt Function
+#define PHY_TIM_1S_IRQ_HANDLER TIM5_IRQHandler
+#define PHY_TIM_1MS_IRQ_HANDLER TIM6_DAC_IRQHandler
+#define PHY_TIM_100US_IRQ_HANDLER TIM7_IRQHandler
+
+// Peripheral Clock Enable
+#define PHY_TIM_1S_CLK_ENABLE() __HAL_RCC_TIM5_CLK_ENABLE()
+#define PHY_TIM_1MS_CLK_ENABLE() __HAL_RCC_TIM6_CLK_ENABLE()
+#define PHY_TIM_100US_CLK_ENABLE() __HAL_RCC_TIM7_CLK_ENABLE()
+
+// Peripheral Clock Disable
+#define PHY_TIM_1S_CLK_DISABLE() __HAL_RCC_TIM5_CLK_DISABLE()
+#define PHY_TIM_1MS_CLK_DISABLE() __HAL_RCC_TIM6_CLK_DISABLE()
+#define PHY_TIM_100US_CLK_DISABLE() __HAL_RCC_TIM7_CLK_DISABLE()
+
+// Peripheral Force Reset
+#define PHY_TIM_1S_FORCE_RESET() __HAL_RCC_TIM5_FORCE_RESET()
+#define PHY_TIM_1MS_FORCE_RESET() __HAL_RCC_TIM6_FORCE_RESET()
+#define PHY_TIM_100US_FORCE_RESET() __HAL_RCC_TIM7_FORCE_RESET()
+
+// Peripheral Release Reset
+#define PHY_TIM_1S_RELEASE_RESET() __HAL_RCC_TIM5_RELEASE_RESET()
+#define PHY_TIM_1MS_RELEASE_RESET() __HAL_RCC_TIM6_RELEASE_RESET()
+#define PHY_TIM_100US_RELEASE_RESET() __HAL_RCC_TIM7_RELEASE_RESET()
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  // DEF_TIM_H

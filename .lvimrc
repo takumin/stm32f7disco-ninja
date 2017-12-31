@@ -1,0 +1,23 @@
+" カレントディレクトリ取得
+let PWD = execute('pwd')
+
+" インクルードパス初期化
+set path=$PWD
+
+" インクルードパス追加
+set path+=$PWD/include
+set path+=$PWD/contrib/libc/include
+set path+=$PWD/vendor/CMSIS_Core/Include
+set path+=$PWD/vendor/STM32F7xx_CMSIS/Include
+set path+=$PWD/vendor/STM32F7xx_HAL/Include
+set path+=$PWD/vendor/STM32F7xx_HAL/Config
+set path+=$PWD/vendor/FreeRTOS/Include
+set path+=$PWD/vendor/FreeRTOS/Config
+set path+=$PWD/vendor/FreeRTOS/Portable/GCC/ARM_CM7/r0p1
+set path+=/usr/lib/llvm-5.0/lib/clang/5.0.1/include
+
+" タグファイルパス
+set tags=/tmp/build/tags
+
+" deoplete-clang
+let g:deoplete#sources#clang#clang_complete_database = '.'

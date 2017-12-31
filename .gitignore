@@ -1,0 +1,7 @@
+/Build/*
+/Debug/
+/Release/
+/build.ninja
+/compile_commands.json
+/tags
+*.jdebug.user
