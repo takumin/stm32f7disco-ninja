@@ -9,7 +9,7 @@ extern "C" {
 #include <stm32f7xx.h>
 
 // BaudRate
-#define PHY_UART_BAUDRATE 115200
+#define PHY_UART_BAUDRATE 2000000
 
 // Peripheral Base Address
 #define PHY_UART_BASE USART1
