@@ -136,6 +136,27 @@ class EmbConfig:
             if re.match('.*_incdir$', k):
                 incs.append(k)
         f.write(str('{0:<' + str(self._val_fmt_) + '} = -isystem ${1}\n').format('_include_flags', str(' -isystem $'.join(incs))))
+        # オブジェクトファイル一覧書き込み
+        objs = []
+        libs = {}
+        flags = []
+        for k, v in sorted(self._objs_.items()):
+            f.write(str('{0:<' + str(self._val_fmt_) + '} = {1}\n').format(k, v))
+            objs.append(k)
+            if re.match(r'.*\.a$', v):
+                lib_file = re.sub(r'.*/', '', v)
+                lib_name = re.sub(r'^lib([a-zA-Z0-9]+)\.a$', '\\1', lib_file)
+                lib_dirs = os.path.dirname(v)
+                if lib_name not in libs:
+                    libs.update({lib_name: lib_dirs})
+        f.write(str('{0:<' + str(self._val_fmt_) + '} = ${1}\n').format('_require_objs', str(' $'.join(objs))))
+        f.write(str('{0:<' + str(self._val_fmt_) + '} = ').format('_ldflags'))
+        for k, v in sorted(libs.items()):
+            flags.append('-L')
+            flags.append(v)
+            flags.append('-l')
+            flags.append(k)
+        f.write('{0}\n'.format(' '.join(flags)))
         # コンパイルフラグ書き込み
         f.write('#\n')
         f.write('# Compiler Flags\n')
@@ -206,6 +227,9 @@ class EmbConfig:
 
 # Ninjaビルドファイル生成クラス
 config = EmbConfig(os.path.join(os.path.dirname(__file__), os.path.realpath('./configure.ini')))
+
+# 標準オブジェクト一覧
+config.get_cmd('_libgcc_a', ['arm-none-eabi-gcc', '-mthumb', '-march=armv7e-m', '-mcpu=cortex-m7', '-mfloat-abi=hard', '-mfpu=fpv5-sp-d16', '-print-file-name=libgcc.a'])
 
 # Ninjaビルドファイル生成
 config.gen_ninja(os.path.join(os.path.dirname(__file__), os.path.realpath('./build.ninja')))
